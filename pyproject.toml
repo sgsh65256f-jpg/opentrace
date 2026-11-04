@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opentrace-local"
+version = "0.1.0"
+description = "A local-first ledger for AI-assisted coding sessions."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "OpenTrace contributors" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["ruff>=0.5"]
+mcp = ["mcp>=1.0.0"]
+
+[project.scripts]
+opentrace = "opentrace.cli:main"
+opentrace-mcp = "opentrace.mcp_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
