@@ -17,7 +17,7 @@ OpenTrace records a developer's work sessions, manually supplied token usage, ve
 - Export session records as JSON or CSV.
 - Store data locally in `.opentrace/opentrace.db`; no telemetry or network calls.
 
-This is an early MVP. It does **not** yet automatically read Claude Code, Codex, Cursor, or other agent transcripts. Integrations are planned only after their data formats and privacy implications are documented and tested.
+This is an early MVP. It includes opt-in local JSONL usage importers for Claude Code and Codex. These adapters support initial observed formats; they are not guaranteed to cover every version or configuration. Cursor is not implemented.
 
 ## Install from source
 
@@ -43,6 +43,13 @@ opentrace finish
 opentrace list
 opentrace report
 opentrace export --format json --output session-report.json
+
+# Optional local agent usage imports
+opentrace import-claude
+opentrace import-codex
+
+# Open the local dashboard
+opentrace dashboard
 ```
 
 Rates are entered in USD per one million tokens. The estimate is simply:
