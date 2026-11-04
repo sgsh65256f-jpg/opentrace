@@ -66,7 +66,8 @@ It excludes provider-specific cached-token rates, tool charges, taxes, and billi
 
 - The database is created under `.opentrace/` in the current working directory.
 - OpenTrace makes no network requests and collects no telemetry.
-- It does not read prompts, source file contents, environment values, or credentials.
+- Optional agent importers parse local session logs to extract aggregate token counts; prompt and completion text are not intentionally stored.
+- OpenTrace does not read source-code file contents, environment values, or credentials.
 - Git capture stores changed file **paths only**, not diffs or file contents.
 - Add `.opentrace/` to your `.gitignore` if session history should remain private.
 - Do not publish session exports without reviewing them for sensitive project names and paths.
@@ -93,11 +94,10 @@ python -m unittest discover -s tests -v
 
 ## Roadmap
 
-1. Harden the event schema and export format.
-2. Add tested, opt-in importers for documented agent session formats.
-3. Add a read-only local dashboard.
-4. Add machine-readable reports for CI and personal analytics.
-5. Consider MCP support after the core data model stabilizes.
+1. Validate importer compatibility against more real-world log versions and fixtures.
+2. Add versioned export schemas and machine-readable reports.
+3. Add documented provider pricing snapshots with cache-token handling.
+4. Add optional agent adapters based on documented local formats.
 
 Roadmap items are proposals, not existing features.
 
