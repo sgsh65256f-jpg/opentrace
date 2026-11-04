@@ -14,9 +14,11 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = ["ruff>=0.5"]
+mcp = ["mcp>=1.0.0"]
 
 [project.scripts]
 opentrace = "opentrace.cli:main"
+opentrace-mcp = "opentrace.mcp_server:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
