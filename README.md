@@ -50,6 +50,10 @@ opentrace import-codex
 
 # Open the local dashboard
 opentrace dashboard
+
+# Optional MCP server (read-only)
+pip install -e '.[mcp]'
+opentrace-mcp
 ```
 
 Rates are entered in USD per one million tokens. The estimate is simply:
