@@ -9,6 +9,7 @@ import sys
 
 from .db import DB_PATH, connect
 from .importers import import_claude, import_codex
+from .dashboard import serve as serve_dashboard
 
 
 def _active_session(db):
@@ -236,6 +237,9 @@ def build_parser():
     claude.add_argument("--path", default="~/.claude/projects")
     codex = command("import-codex", lambda args: print(import_codex(args.path)), "import local Codex usage")
     codex.add_argument("--path", default="~/.codex/sessions")
+    dashboard = command("dashboard", lambda args: serve_dashboard(args.host, args.port), "serve the local read-only dashboard")
+    dashboard.add_argument("--host", default="127.0.0.1")
+    dashboard.add_argument("--port", type=int, default=8765)
     export = command("export", cmd_export, "export session history")
     export.add_argument("--format", choices=("json", "csv"), default="json")
     export.add_argument("--output", default="opentrace-report.json")
