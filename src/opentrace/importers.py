@@ -1,5 +1,6 @@
 """Local agent log import helpers."""
 import json
+import hashlib
 from pathlib import Path
 from .db import connect
 
@@ -74,9 +75,10 @@ def _import(root, provider, parser):
             seen += 1
             try:
                 identity = str(path.resolve())
+                digest = hashlib.sha256(path.read_bytes()).hexdigest()
                 duplicate = db.execute(
-                    "SELECT 1 FROM imported_sources WHERE provider=? AND source_name=?",
-                    (provider, identity),
+                    "SELECT 1 FROM imported_sources WHERE provider=? AND sha256=?",
+                    (provider, digest),
                 ).fetchone()
                 if duplicate:
                     skipped += 1
@@ -98,7 +100,7 @@ def _import(root, provider, parser):
                 )
                 db.execute(
                     "INSERT INTO imported_sources(provider,sha256,source_name,session_id) VALUES (?,?,?,?)",
-                    (provider, identity, identity, sid),
+                    (provider, digest, identity, sid),
                 )
                 imported += 1
             except (OSError, ValueError, TypeError):
