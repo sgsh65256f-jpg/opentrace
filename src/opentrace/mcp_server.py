@@ -56,5 +56,9 @@ def usage_summary() -> dict:
         db.close()
 
 
-if __name__ == "__main__":
+def main():
     mcp.run(transport="stdio")
+
+
+if __name__ == "__main__":
+    main()
