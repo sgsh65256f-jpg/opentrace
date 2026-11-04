@@ -8,6 +8,7 @@ import subprocess
 import sys
 
 from .db import DB_PATH, connect
+from .importers import import_claude, import_codex
 
 
 def _active_session(db):
@@ -231,6 +232,10 @@ def build_parser():
     listing = command("list", cmd_list, "list recent sessions")
     listing.add_argument("--limit", type=int, default=20)
     command("report", cmd_report, "summarize recorded sessions")
+    claude = command("import-claude", lambda args: print(import_claude(args.path)), "import local Claude Code usage")
+    claude.add_argument("--path", default="~/.claude/projects")
+    codex = command("import-codex", lambda args: print(import_codex(args.path)), "import local Codex usage")
+    codex.add_argument("--path", default="~/.codex/sessions")
     export = command("export", cmd_export, "export session history")
     export.add_argument("--format", choices=("json", "csv"), default="json")
     export.add_argument("--output", default="opentrace-report.json")
